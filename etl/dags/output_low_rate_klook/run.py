@@ -36,6 +36,7 @@ target_conn = {
     "production": "mongo"}
 
 mongo_conn = BaseHook.get_connection(target_conn[stage])
+git_conn = BaseHook.get_connection("git")
 folder = 'LowRateReview'
 file_name = 'output_low_rate_klook.csv'
 params = {
@@ -47,7 +48,7 @@ params = {
     "MongoUserName": mongo_conn.login,
     "MongoPassword": mongo_conn.password,
     "start_date": '{{ tomorrow_ds }}',
-    'token': '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',
+    'token': git_conn.extra,
     'push_repo': 'jjudy60334/LowRateReview',
     'output_file_path': os.path.join(os.path.dirname(__file__), folder),
     'file_name': file_name}
